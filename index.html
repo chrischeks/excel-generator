@@ -14,33 +14,73 @@
     <!-- (C) JAVASCRIPT -->
     <script>
       document.getElementById("demo").onclick = () => {
+        //Implementation 1
         // (C1) DUMMY DATA
-        const data = [
-          ["Joa Doe", "joa@doe.com"],
-          ["Job Doe", "job@doe.com"],
-          ["Joe Doe", "joe@doe.com"],
-          ["Jon Doe", "jon@doe.com"],
-          ["Joy Doe", "joy@doe.com"],
-        ];
+        // const data1 = [
+        //   ["Joa Doe", "joa@doe.com"],
+        //   ["Job Doe", "job@doe.com"],
+        //   ["Joe Doe", "joe@doe.com"],
+        //   ["Jon Doe", "jon@doe.com"],
+        //   ["Joy Doe", "joy@doe.com"],
+        // ];
+        // const data2 = [
+        //   ["Joa Doe1", "joa@doe.com"],
+        //   ["Job Doe1", "job@doe.com"],
+        //   ["Joe Doe1", "joe@doe.com"],
+        //   ["Jon Doe1", "jon@doe.com"],
+        //   ["Joy Doe1", "joy1@doe.com"],
+        // ];
+        // // (C2) CREATE NEW EXCEL "FILE"
+        // var workbook = XLSX.utils.book_new(),
+        //   worksheet = XLSX.utils.aoa_to_sheet(data1);
+        // worksheet2 = XLSX.utils.aoa_to_sheet(data2);
+        // workbook.SheetNames.push("Sheet1");
+        // workbook.SheetNames.push("Sheet2");
+        // workbook.Sheets["First"] = worksheet;
+        // workbook.Sheets["Cheks"] = worksheet2;
+        // // (C3) "FORCE DOWNLOAD" XLSX FILE
+        // XLSX.writeFile(workbook, "demo.xlsx");
 
-        const data2 = [
-          ["Joa Doe1", "joa@doe.com"],
-          ["Job Doe1", "job@doe.com"],
-          ["Joe Doe1", "joe@doe.com"],
-          ["Jon Doe1", "jon@doe.com"],
-          ["Joy Doe1", "joy1@doe.com"],
-        ];
-
-        // (C2) CREATE NEW EXCEL "FILE"
-        var workbook = XLSX.utils.book_new(),
-          worksheet = XLSX.utils.aoa_to_sheet(data);
-        worksheet2 = XLSX.utils.aoa_to_sheet(data2);
-        workbook.SheetNames.push("First");
-        workbook.SheetNames.push("Cheks");
-        workbook.Sheets["First"] = worksheet;
-        workbook.Sheets["Cheks"] = worksheet2;
-
-        // (C3) "FORCE DOWNLOAD" XLSX FILE
+        //Implementation 2
+        const workbook = XLSX.utils.book_new();
+        const worksheet2 = XLSX.utils.json_to_sheet(
+          [
+            { A: "S", B: "h", C: "e", D: "e", E: "t", F: "J", G: "S" },
+            { A: 1, B: 2, C: 3, D: 4, E: 5, F: 6, G: 7 },
+            { A: 2, B: 3, C: 4, D: 5, E: 6, F: 7, G: 8 },
+          ],
+          { header: ["A", "B", "C", "D", "E", "F", "G"], skipHeader: true }
+        );
+        const worksheet1 = XLSX.utils.json_to_sheet(
+          [
+            {
+              Firstname: "Okeke",
+              Lastname: "Adams",
+              Email: "Okeke@admin.com",
+              Phone: "+23492939393939",
+            },
+            {
+              Firstname: "Sadio",
+              Lastname: "Ramos",
+              Email: "Ramos@admin.com",
+              Phone: "+23492939393933",
+            },
+            {
+              Firstname: "Nneka",
+              Lastname: "Musa",
+              Email: "Nneka@adma.com",
+              Phone: "+23492939393911",
+            },
+          ],
+          {
+            header: ["Firstname", "Lastname", "Email", "Phone"],
+            skipHeader: false,
+          }
+        );
+        workbook.SheetNames.push("Sheet1");
+        workbook.SheetNames.push("Sheet2");
+        workbook.Sheets["Sheet1"] = worksheet1;
+        workbook.Sheets["Sheet2"] = worksheet2;
         XLSX.writeFile(workbook, "demo.xlsx");
       };
     </script>
